@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import MListCom from "../../components/member/MListCom";
 import { getData } from "../../service/member/member";
 import { useNavigate } from "react-router-dom";
-let num = 0;
 function MListCon(){
     const [list, setList] = useState([])
     //console.log(getData())
