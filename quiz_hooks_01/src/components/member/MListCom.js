@@ -18,8 +18,8 @@ function MListCom({data}){
             )}
         </tbody>
     </table>
-    {data && data[0]["id"] }<br></br>
-    {data && data[1]["name"] }<br></br>
+    {/*data && data[0]["id"] }<br></br>
+    {data && data[1]["name"] */}<br></br>
     <hr></hr>
         MListCom
     </>)
