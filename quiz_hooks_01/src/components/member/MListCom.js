@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function MListCom({data}){
-    console.log("com : ", data)
+    //console.log("com : ", data)
     return (<>
     <table border={1}>
         <thead>

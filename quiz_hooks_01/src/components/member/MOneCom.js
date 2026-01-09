@@ -1,12 +1,15 @@
-function MOneCom({data, onDelete}){
-    console.log("com : ", data)
+function MOneCom({data, onDelete, onModify}){
+    //console.log("com : ", data)
     return (<>
     <ul>
         <li>id : {data && data.id}</li>
         <li>pwd : {data && data.pwd}</li>
         <li>name : {data && data.name}</li>
         <li>addr : {data && data.addr}</li>
-        <li><button onClick={() => onDelete(data.id)}>삭제</button></li>
+        <li><button onClick={() => onDelete(data.id)}>삭제</button>
+            <button onClick={() => onModify(data.id)}>수정</button>
+        </li>
+        
         <hr></hr>
         {/* {data && <>
             <li>{data.id}</li>
