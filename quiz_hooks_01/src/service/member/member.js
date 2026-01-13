@@ -35,3 +35,14 @@ export const modify = (user) => {
     data_set = data_set.filter(data => data.id !== user.id)
     data_set = data_set.concat(user)
 }
+export const loginCheck = (id, pwd) => {
+    const data = data_set.filter(d => d.id === id)
+    if(data.length !== 0){
+        if(data[0].pwd === pwd){
+            return 0; //인증 성공
+        }else{
+            return 1; //비밀번호 틀림
+        }
+    }
+    return -1; //존재하지 않는 id
+}
