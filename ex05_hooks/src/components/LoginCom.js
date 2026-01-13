@@ -14,7 +14,7 @@ const LoginCom = ({loading, error, onSubmit, state, onChange}) =>{
     }
     //console.log("com state : ", state)
     return(<>
-        {content}
+    {content}
     </>)
 }
 export default LoginCom;
