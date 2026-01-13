@@ -1,9 +1,13 @@
-import { useReducer } from "react";
+import { useContext, useReducer } from "react";
 import LoginCom from "../components/LoginCom";
 import { initalLogin, initalState, reducer } from "../moduls/member_red";
+import { useNavigate } from "react-router-dom";
+import { loginCheck } from "../service/member";
+import { AuthContext } from "../store/AuthContext";
 
 const LoginCon = () =>{
     const [state, dispatch] = useReducer(reducer,initalState)
+    const {login} = useContext(AuthContext)
     const onChange = (e) => {
         //console.log(e.target)
         dispatch({//type:"LOGIN_INPUT", 
@@ -13,8 +17,31 @@ const LoginCon = () =>{
                 form : "login"
         });
     }
+
+    const navigate = useNavigate();
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch({type:"LOADING"})
+        //setTimeout(()=>{
+            try{
+                //console.log("login : ", state)
+                const result = loginCheck(state.login.id, state.login.pwd)
+                //console.log("result : ", result)
+                if(result === 0){
+                    login(state.login.id)
+                    navigate("/list")
+                }
+            }catch(e){
+                dispatch({type:"ERROR", error:e.toString()})
+                return;
+            }
+            dispatch({type:"FINSHED"})
+        //}, 1000)
+        
+    }
+
     return(<>
-    <LoginCom state={state} onChange={onChange}/>
+    <LoginCom state={state} onChange={onChange} onSubmit={onSubmit} loading={state.loadding} error={state.error}/>
     </>)
 }
 export default LoginCon;
