@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-const StyledButton = styled.button`
+const StyleButton = styled.button`
     width: 100px; height: 30px; margin-top: 10px;
     border: none; border-radius: 5px;
     font-size: 15px; font-weight: bold;
@@ -15,4 +15,4 @@ const StyledButton = styled.button`
         `}
     }
 `;
-export default StyledButton;
+export default StyleButton;

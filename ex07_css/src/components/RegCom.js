@@ -1,48 +1,49 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-import StyleInput from "./common/StyleInput";
 import StyleForm from "./common/StyleForm";
+import StyleInput from "./common/StyleInput";
 import StyleButton from "./common/StyleButton";
+import styled from "styled-components";
+
 const AuthBlock = styled.div`
     position: absolute;
     left : 0; top: 0; bottom: 0; right: 0;
-    background-color: rgba(0,0,0,0.1);
 `;
-const LoginBox = styled.div`
+const RegBox = styled.div`
     position: absolute;
     width: 360px; min-height: 200px;
     top: 150px; left: calc(50% - 180px);
     background-color: white;
     padding-top: 20px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.3);
     border-radius: 5px;
     .logo-area{
         text-align: center;
         font-weight: bold;
         letter-spacing: 5px; font-size: 20px;
-        border-bottom: 1px dotted olive;
         padding-bottom: 5px;
         width: 50%; margin: 0 auto;
-        a{color:darkcyan; &:hover{color: cyan;}}
+        a{color:chocolate;}
     }
 `;
-const LoginCom = ({result, loading, error, onChange, onSubmit, username, password}) => {
+const RegCom = ({result, loading, error, onChange, onSubmit, username, password, role}) => {
     return(<>
-        <AuthBlock>
-            <LoginBox>
+     <AuthBlock>
+            <RegBox>
                 <div className="logo-area">
-                    <Link to="/">탱이냥 이동</Link>
+                    <Link to="/">회원가입</Link>
                 </div>
                 <StyleForm onSubmit={onSubmit}>
-                    <StyleInput type="text" value={username} name="username" onChange={onChange} placeholder="input username"/>
-                    <StyleInput type="text" value={password} name="password" onChange={onChange} placeholder="input password"/>
-                    <StyleButton width="100%" background={["178,235,244",0.5]}disabled={loading}>로그인</StyleButton>
+                    <StyleInput type="text" value={username} name="username" onChange={onChange} placeholder="username"/>
+                    <StyleInput type="text" value={password} name="password" onChange={onChange} placeholder="password"/>
+                    <StyleInput type="text" value={role} name="role" onChange={onChange} placeholder="role"/>
+                    <StyleButton width="35%" background={["gray",0.5]}disabled={loading}>REGISTER</StyleButton>
+                    {/* 
                     {loading && <p>로그인 중 입니다...</p>}
                     {error && <p>문제 발생 : {error}</p>}
                     {result === 1 && <p>아이디 또는 비번 불일치</p>}
+                    */}
                 </StyleForm>
-            </LoginBox>
+            </RegBox>
         </AuthBlock>
     </>)
 }
-export default LoginCom;
+export default RegCom;

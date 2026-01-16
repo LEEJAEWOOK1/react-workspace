@@ -24,7 +24,7 @@ const StyleNav = styled.nav`
     a:hover {color:gray}
 }
 `;
-const HeaderCom = () => {
+const HeaderCom = ({username, isLoggedIn, onLogout}) => {
     return(<>
         <WrapBlock>
             <StyleHeader>
@@ -37,8 +37,17 @@ const HeaderCom = () => {
                         <li><Link to="/">간식</Link></li>
                     </ul>
                     <ul>
-                        <li><Link to="/login">로그인</Link></li>
-                        <li><Link to="/">회원가입</Link></li>
+                        {isLoggedIn
+                        ?<>
+                            <li><Link to="/logout" onClick={onLogout}>로그아웃</Link></li>
+                            <li>{username}님</li>
+                        </>
+                        :
+                        <>
+                            <li><Link to="/login">로그인</Link></li>
+                            <li><Link to="/register">회원가입</Link></li>
+                        </>
+                        }
                     </ul>
                 </StyleNav>
             </StyleHeader>
