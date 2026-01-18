@@ -24,7 +24,8 @@ const RegBox = styled.div`
         a{color:chocolate;}
     }
 `;
-const RegCom = ({result, loading, error, onChange, onSubmit, username, password, role}) => {
+const RegCom = ({inputCheck, result, loading, error, onChange, onSubmit, username, password, role}) => {
+
     return(<>
      <AuthBlock>
             <RegBox>
@@ -32,15 +33,12 @@ const RegCom = ({result, loading, error, onChange, onSubmit, username, password,
                     <Link to="/">회원가입</Link>
                 </div>
                 <StyleForm onSubmit={onSubmit}>
-                    <StyleInput type="text" value={username} name="username" onChange={onChange} placeholder="username"/>
-                    <StyleInput type="text" value={password} name="password" onChange={onChange} placeholder="password"/>
-                    <StyleInput type="text" value={role} name="role" onChange={onChange} placeholder="role"/>
+                    <StyleInput ref={e=>inputCheck.current[0]=e} type="text" value={username} name="username" onChange={onChange} placeholder="username"/>
+                    <StyleInput ref={e=>inputCheck.current[1]=e}  type="text" value={password} name="password" onChange={onChange} placeholder="password"/>
+                    <StyleInput ref={e=>inputCheck.current[2]=e} type="text" value={role} name="role" onChange={onChange} placeholder="role"/>
                     <StyleButton width="35%" background={["gray",0.5]}disabled={loading}>REGISTER</StyleButton>
-                    {/* 
-                    {loading && <p>로그인 중 입니다...</p>}
+                    {loading && <p> 회원가입 진행 중...</p>}
                     {error && <p>문제 발생 : {error}</p>}
-                    {result === 1 && <p>아이디 또는 비번 불일치</p>}
-                    */}
                 </StyleForm>
             </RegBox>
         </AuthBlock>

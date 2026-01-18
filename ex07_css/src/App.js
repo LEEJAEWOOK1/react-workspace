@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import IndexCon from './containers/IndexCon';
 import LoginCon from './containers/LoginCon';
 import RegCon from './containers/RegCon';
+import ListCon from './containers/ListCon';
 
 function App() {
   return (<>
@@ -14,6 +15,7 @@ function App() {
       <Route path='/' element={<IndexCon/>}/>
       <Route path='/login' element={<LoginCon/>}/>
       <Route path='/register' element={<RegCon/>}/>
+      <Route path='/list' element={<ListCon/>}/>
     </Routes>
     {/* <Test01/> */}
     {/* <Test02/> */}

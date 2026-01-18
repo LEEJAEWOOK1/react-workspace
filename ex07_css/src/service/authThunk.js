@@ -15,5 +15,17 @@ export const loginThunk = createAsyncThunk(
         //throw new Error("로그인 중 에러 발생")
         return {result, username:user.username} //성공0, 실패 1
     }
-    
+);
+export const registerThunk = createAsyncThunk (
+    "registerThunk",
+    async (user) => {
+        data_set = data_set.concat(user);
+        return 1;
+    }
+);
+export const memberThunk = createAsyncThunk(
+    "memberThunk",
+    async () => {
+        return data_set;
+    }
 );

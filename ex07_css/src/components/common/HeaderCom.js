@@ -35,6 +35,7 @@ const HeaderCom = ({username, isLoggedIn, onLogout}) => {
                     <ul className="menu">
                         <li><Link to="/">사료</Link></li>
                         <li><Link to="/">간식</Link></li>
+                        <li><Link to="/list">LIST</Link></li>
                     </ul>
                     <ul>
                         {isLoggedIn
