@@ -4,6 +4,7 @@ let data_set = [
     {username:"bbb",password :"bbb", role : "USER"},
     {username:"ccc",password :"ccc", role : "USER"},
 ]
+const path = "http://localhost:10000/api/v1"; //벡앤드 연동
 export const loginThunk = createAsyncThunk(
   "loginThunk", 
   async ( user ) => {
@@ -25,7 +26,12 @@ export const registerThunk = createAsyncThunk(
 export const memberThunk = createAsyncThunk(
     "memberThunk",
     async () => {
-        return data_set;
+        const res = await fetch(path + "/members", {method:"get"}); //백엔드연동
+        console.log(res)
+        //if(res.ok)
+        return await res.json()
+        //throw new Error()
+        //return data_set;
     }
 );
 export const memberOneThunk = createAsyncThunk(
