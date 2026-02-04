@@ -4,7 +4,7 @@ import StyleForm from "./common/StyleForm";
 import StyledInput from "./common/StyleInput";
 import { ProductTitle } from "./common/StyleProduct";
 
-const RegCom = ({onChange, onSubmit, username, password, role}) => {
+const RegCom = ({error, loading, onChange, onSubmit, username, password, role}) => {
     return (<>
     
             <ProductTitle>회 원 가 입</ProductTitle>
@@ -13,6 +13,10 @@ const RegCom = ({onChange, onSubmit, username, password, role}) => {
                 <StyledInput name="password" value={password} onChange={onChange} placeholder="password"/>
                 <StyledInput name="role" value={role} onChange={onChange} placeholder="role"/>
                 <StyledButton>회원 가입</StyledButton>
+                {loading
+                    ? <div>회원가입 중...</div>
+                    : error ? <div>{error}</div> : <></>
+                }
             </StyleForm>
         
     </>)

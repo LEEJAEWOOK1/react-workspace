@@ -1,11 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit"
-const inputSlice = createSlice({
-    name : "input",
-    initialState : {
+
+const initialState = {
         login : {username:"", password:""},
         register : {username:"", password:"", role:""},
         modify : {username:"", password:"", role:""}
-    },
+    }
+const inputSlice = createSlice({
+    name : "input",
+    initialState : initialState,
     reducers : {
         changeInput : (state, action) => {
             //console.log({...state})
@@ -17,10 +19,11 @@ const inputSlice = createSlice({
         setModifyData : (state, action) => {
             console.log("action : ", action)
             state.modify = action.payload;
-        }
+        },
+        initInput : (state) => initialState
     }
 })
 //inputSlice.actions.changeInput()
 //changeInput()
-export const {changeInput, setModifyData} = inputSlice.actions;
+export const {changeInput, setModifyData, initInput} = inputSlice.actions;
 export default inputSlice;
