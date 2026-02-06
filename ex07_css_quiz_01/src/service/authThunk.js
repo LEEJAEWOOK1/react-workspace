@@ -51,8 +51,9 @@ export const memberThunk = createAsyncThunk(
     async () => {
         const res = await fetch(path + "/members", {method:"get"}); //백엔드연동
         console.log(res)
-        //if(res.ok)
-        return await res.json() //response body를 JSON이라고 가정하고(믿고) 파싱해라
+        if(res.ok)
+            return await res.json() //response body를 JSON이라고 가정하고(믿고) 파싱해라
+        return null;
         //throw new Error()
         //return data_set;
     }
