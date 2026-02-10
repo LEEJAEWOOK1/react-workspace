@@ -18,8 +18,26 @@ const DivContent = styled.div`
     border-bottom : 1px solid gray;
     padding : 15px;
 `;
-const ListCom = ({data, onInfo}) => {
-    console.log("lisg com : ", data)
+const DivPage = styled.div`
+    margin-top : 20px;
+    text-align : center;
+`;
+const SpanPage =styled.span`
+    width : 30px; display : inline-block;
+    cursor : pointer;
+    color : ${(props) => (props.$active ? "red" : "black")};
+    &:hover{font-weight : bold;}
+`;
+const ListCom = ({onClick, data, onInfo}) => {
+    //console.log("lisg com : ", data)
+    //페이지 번호 가져오기
+    let number = [];
+    if(data !== null){
+        for(let i=1 ; i<=data.totalPage ; i++){
+            number.push(<SpanPage key={i} $active={i===data.currentPage} onClick={()=>onClick(i)}>{i}</SpanPage>)
+        } //$active : 활성 상태로 만들어라,$: style 컴포넌트에서만 동작하는 변수
+        number.push(<b key="page-info">({data.currentPage} / {data.totalPage})</b>)
+    }
     return(<>
         
                 <ListTitle>회 원 목 록</ListTitle>
@@ -28,12 +46,13 @@ const ListCom = ({data, onInfo}) => {
                             <b>아이디</b><b>비밀번호</b><b>ROLE</b>
                         </DivContent>
 
-                        {data && data.map(d => (
+                        {data && data.list.map(d => (
                             <DivContent key={d.username}>
                                 <span style={{cursor:"pointer"}} onClick={() => onInfo(d.id)}>{d.username}</span>
                                 <span>{d.password}</span>
                                 <span>{d.role}</span>
-                            </DivContent>))}    
+                            </DivContent>))} 
+                            <DivPage>{number}</DivPage>
                     </DivWrap>
                 
             

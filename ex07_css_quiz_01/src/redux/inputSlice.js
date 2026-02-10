@@ -2,8 +2,8 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
         login : {username:"", password:""},
-        register : {username:"", password:"", role:""},
-        modify : {username:"", password:"", role:""}
+        register : {username:"", password:"", role:"", file:null},
+        modify : {username:"", password:"", role:"", fileName: ""}
     }
 const inputSlice = createSlice({
     name : "input",
@@ -17,7 +17,7 @@ const inputSlice = createSlice({
             state[form][name] = value
         },
         setModifyData : (state, action) => {
-            console.log("action : ", action)
+            //console.log("action : ", action)
             state.modify = action.payload;
         },
         initInput : (state) => initialState

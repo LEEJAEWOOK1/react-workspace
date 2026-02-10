@@ -9,7 +9,7 @@ const RegCon = () => {
     const {username, password, role} = useSelector(state => state.input.register);
 
     const {error, loading} = useSelector(state => {
-        console.log("reg con state => ", state)
+        //console.log("reg con state => ", state)
         return state.auth;
     })
     const dispatch = useDispatch();

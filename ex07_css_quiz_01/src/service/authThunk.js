@@ -48,9 +48,9 @@ export const registerThunk = createAsyncThunk(
 );
 export const memberThunk = createAsyncThunk(
     "memberThunk",
-    async () => {
-        const res = await fetch(path + "/members", {method:"get"}); //백엔드연동
-        console.log(res)
+    async (start) => {
+        const res = await fetch(path + "/members?start="+(start-1), {method:"get"}); //백엔드연동
+        //console.log(res)
         if(res.ok)
             return await res.json() //response body를 JSON이라고 가정하고(믿고) 파싱해라
         return null;
@@ -62,7 +62,7 @@ export const memberOneThunk = createAsyncThunk(
     "memberOneThunk",
     async (user) => {
         const res = await fetch(path + "/members/"+user.username)//백엔드 연동
-        console.log(user.username, typeof user.username)
+        //console.log(user.username, typeof user.username)
         return await res.json();
         /*
         console.log("one Thunk : ", user)
@@ -76,7 +76,8 @@ export const memberDeleteThunk = createAsyncThunk(
     "memberDeleteThunk",
     async (user) => {
         const res = await fetch(path+"/members/"+user.username, { //백엔드 연동
-            method : "delete"
+            method : "delete",
+            body : user.fileName
         })
         if(res.ok)
             return 1;

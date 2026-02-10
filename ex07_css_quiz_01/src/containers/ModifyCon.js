@@ -10,7 +10,7 @@ const ModifyCon = () => {
     const params = useParams();
     //console.log("params : ", params);
     const dispatch = useDispatch();
-    const {username, password, role} = useSelector(state => state.input.modify)
+    const {username, password, role, fileName} = useSelector(state => state.input.modify)
     const {dataOne} = useSelector(state => state.memberData)
     useEffect(()=>{
         dispatch(memberOneThunk({username: params.username}))
@@ -34,7 +34,7 @@ const ModifyCon = () => {
     }
     return (<>
         
-        <ModifyCom onChange={onChange} onSubmit={onSubmit} username={username} password={password} role={role}/>
+        <ModifyCom fileName={fileName} onChange={onChange} onSubmit={onSubmit} username={username} password={password} role={role}/>
     </>)
 }
 export default ModifyCon;
