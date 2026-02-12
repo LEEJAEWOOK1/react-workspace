@@ -10,7 +10,7 @@ export const loginThunk = createAsyncThunk(
   "loginThunk", 
   async ( user ) => {
     //console.log("login thunk user : ", user)
-    const res = await fetch(path + "/members/login", { //백엔드 연동
+    const res = await fetch(path + "/auth/login", { //백엔드 연동
         method : "POST",
         headers : {"Content-Type" : "application/json"},
         body : JSON.stringify(user)
@@ -61,8 +61,12 @@ export const memberThunk = createAsyncThunk(
 export const memberOneThunk = createAsyncThunk( 
     "memberOneThunk",
     async (user) => {
-        const res = await fetch(path + "/members/"+user.username)//백엔드 연동
+        const token = sessionStorage.getItem("token");
+        const res = await fetch(path + "/members/"+user.username, {
+            headers : {"Authorization": `Bearer ${token}`}
+        })//백엔드 연동
         //console.log(user.username, typeof user.username)
+        console.log("status:", res.status);
         return await res.json();
         /*
         console.log("one Thunk : ", user)
@@ -75,8 +79,12 @@ export const memberOneThunk = createAsyncThunk(
 export const memberDeleteThunk = createAsyncThunk(
     "memberDeleteThunk",
     async (user) => {
+        const token = sessionStorage.getItem("token");
         const res = await fetch(path+"/members/"+user.username, { //백엔드 연동
             method : "delete",
+            headers : {
+                "Authorization":`Bearer ${token}`
+            },
             body : user.fileName
         })
         if(res.ok)
@@ -90,9 +98,10 @@ export const memberModifyThunk = createAsyncThunk(
     "memberModifyThunk",
     async ({id, formData}) => {
         //{id:1, username:aaa, pwd:aaas, role:user}
+        const token = sessionStorage.getItem("token");
         const res = await fetch(path+"/members/"+id,{ //백엔드 연동
             method : "put",
-            headers: {},
+            headers: {"Authorization":`Bearer ${token}`},
             body : formData
         })
         //data_set = data_set.filter(d => d.username !== user.username)

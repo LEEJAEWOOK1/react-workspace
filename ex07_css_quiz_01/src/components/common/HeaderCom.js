@@ -28,7 +28,10 @@ const StyleNav = styled.nav`
     a:hover { color: gray;};
 `;
 const HeaderCom = () => {
-    const {isLoggedIn,username} = useSelector(state => state.auth);
+    const {isLoggedIn,username, role} = useSelector(state => {
+        console.log("headr com : ", state)
+        return state.auth;
+    });
     const dispatch = useDispatch();
     const onLogout = (e) => {
         e.preventDefault();
@@ -45,6 +48,9 @@ const HeaderCom = () => {
                         <li><Link to="/">사료</Link></li>
                         <li><Link to="/">간식</Link></li>
                         <li><Link to="/list">LIST</Link></li>
+                        {role === 'ROLE_ADMIN' && <>
+                            <li><Link to="/">ADMIN</Link></li>
+                        </>}
                     </ul>
                     <ul>
                         {isLoggedIn?
