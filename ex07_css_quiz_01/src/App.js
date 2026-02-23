@@ -9,6 +9,10 @@ import ListCon from './containers/ListCon';
 import InfoCon from './containers/InfoCon';
 import HeaderCom from './components/common/HeaderCom';
 import ModifyCon from './containers/ModifyCon';
+import PostListCon from './containers/post/ListCon';
+import PostInfoCon from './containers/post/InfoCon';
+import PostRegCon from './containers/post/RegCon';
+import PostModifyCon from './containers/post/ModifyCon';
 
 function App() {
   return (<>
@@ -20,6 +24,13 @@ function App() {
         <Route path='/list' element={<ListCon/>}/>
         <Route path='/info/:username' element={<InfoCon/>}/>
         <Route path='/modify/:username' element={<ModifyCon/>}/>
+
+        <Route path='/post'>
+          <Route path='list' element={<PostListCon />}/>
+          <Route path='info/:postId' element={<PostInfoCon />}/>
+          <Route path='register' element={<PostRegCon />}/>
+          <Route path='modify/:postId' element={<PostModifyCon />}/>
+        </Route>
       </Route>
     </Routes>
 
