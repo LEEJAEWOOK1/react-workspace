@@ -6,7 +6,14 @@ const path = service_path;
 export const postThunk = createAsyncThunk(
     "postThunk",
     async () => {
-        const res = await fetch(path + "/post")
+        const token = sessionStorage.getItem("token");
+        let res;
+        if(token)
+            res = await fetch(path + "/post", {
+                headers : {"Authorization" : `Bearer ${token}`}
+            })
+        else
+            res = await fetch(path + "/post")
         if(res.ok)
             return res.json();
         if(res.status === 404)
@@ -84,5 +91,27 @@ export const postModifyThunk = createAsyncThunk(
             throw new Error("로그인 먼저 하세요")
         if(res.status === 403)
             throw new Error("수정 권한 없음")
+    }
+);
+// 좋아요
+export const postLikedThunk = createAsyncThunk(
+    "postLikedThunk",
+    async (like) => {//{postId : 번호, liked : true}
+        const token = sessionStorage.getItem("token");
+        let res;
+        if(like.liked){ //좋아요 삭제
+            res = await fetch(path + `/post/${like.postId}/like`, {
+                method : "delete",
+                headers : {"Authorization" : `Bearer ${token}`}
+            })
+        } else{ //좋아요 추가
+            res = await fetch(path + `/post/${like.postId}/like`, {
+                method : "post",
+                headers : {"Authorization" : `Bearer ${token}`}
+            })
+        }
+        if(res.ok)
+            return {liked : !like.liked, postId : like.postId};
+        throw new Error("좋아요 중 문제 발생...")
     }
 );

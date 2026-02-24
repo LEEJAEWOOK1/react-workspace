@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postDeleteThunk, postModifyThunk, postOneThunk, postRegisterThunk, postThunk } from "../../service/post/postThunk";
+import { postDeleteThunk, postLikedThunk, postModifyThunk, postOneThunk, postRegisterThunk, postThunk } from "../../service/post/postThunk";
 import { createLoadingReducers } from "../commonLoadingHandlers";
 
 const initialState = {data : null, dataOne : null, loading : false, error : null, result : false}
@@ -47,6 +47,18 @@ const postDataSlice = createSlice({
             state.result = action.payload;
         })
         createLoadingReducers(builder, postModifyThunk);
+        //좋아요
+        builder
+        .addCase(postLikedThunk.fulfilled, (state, action) =>{
+            state.loading = false;
+            const {postId, liked} = action.payload
+            const post = state.data.find(post => post.id === postId)
+            if(post){
+                post.liked = liked;
+                post.likedCount += liked ? 1 : -1;
+            }
+        })
+        createLoadingReducers(builder, postLikedThunk);
     }
 })
 export const {clearResult} = postDataSlice.actions;
