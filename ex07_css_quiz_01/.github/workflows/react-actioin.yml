@@ -1,0 +1,32 @@
+name: React CI-CD
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    #github 연동
+      - name: Checkout code
+        uses: actions/checkout@v3
+     
+      # lock파일에 적용된 버전 동일하게 install( 배포시 사용 )
+      # 단순 yarn install을 진행하면 버전 변경 될 수 있다. Yarn.lock는 변경하지 말고 정확히 해당 버전으로 설치
+      - name: Install Dependencies
+        run : yarn install --frozen-lockfile
+       
+      #ci진행시 사용되지 않는 import 및 변수를 에러로 처리
+      # ci=false 적용
+      - name : Build
+        run : CI=false yarn run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.REACT_ACC_KEY }}
+          aws-secret-access-key: ${{ secrets.REACT_SEC_KEY }}
+          aws-region: ${{ secrets.REACT_REGION }}
+
+      - name : Upload to S3
+        run : aws s3 cp ./build s3://${{secrets.REACT_BUCKET_NAME}} --recursive
